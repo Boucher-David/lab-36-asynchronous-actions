@@ -1,6 +1,37 @@
 401 JS --  Lab 36 Full Stack Crud
 ===
-David's Description
+# Guide
+
+Make sure to run 'npm install' and create a .env. Then run the following, based upon your needs: 
+
+"npm run dev-backend"     -> starts node.js server using nodemon. Use this for all server-side development.
+
+"npm run dev-frontend"    -> starts webpack dev server for the front end. 
+
+"npm run dev-db"          -> You will need to run this in a separate terminal to run mongodb.
+
+"npm run prod"            -> Simulate production app. Useful for testing everything running together.
+
+NODE_ENV will be set to either 'development' or 'production'. 
+
+To run locally, you will need to create a .env file in root with the following properties:
+
+BACKEND_PORT=8000
+
+WEBPACK_PORT=3000
+
+MONGODB_URI=
+
+These ports can be anything you want, just different from each other (and not the mongodb port 27017).
+
+# Mongoose Trouble?
+
+"pgrep mongo". Get the ID, then "kill ID" to terminate any open mongo connections that are hidden. 
+
+
+
+
+
 
 ===
 ## Submission Instructions
