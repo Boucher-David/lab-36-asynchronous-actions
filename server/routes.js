@@ -9,9 +9,8 @@ const Wizard = require(`${__dirname}/models/wizard.js`);
 app.use(express.static(__dirname + '/../bundle/'));
 
 app.post('/wizard', jsonParser, (req, res, next) => {
-
    const newWizard = new Wizard(req.body);
-   newWizard.save().then(message => res.send(message)).catch(err => res.send(err.message));
+   newWizard.save().then(message => res.send(message)).catch(err => res.send(err));
 });
 
 app.get('/wizard/:id', (req, res, next) => {
@@ -22,9 +21,14 @@ app.get('/wizard', (req, res, next) => {
     Wizard.find(req.query || {}).then(wizards => res.send(wizards)).catch(err => res.send(err.message));
 });
 
-app.put('/wizards/:id',jsonParser,  (req, res, next) => {
+app.put('/wizard/:id',jsonParser,  (req, res, next) => {
     if (typeof req.body['_id'] !== 'undefined') delete req.body._id;
-    Wizard.findOneAndUpdate({_id: req.params.id}, req.body)
+    Wizard.findOneAndUpdate({_id: req.params.id}, {name: req.body.name})
       .then(data => res.send(data))
       .catch(err => res.send(err.message));
+});
+
+
+app.delete('/wizard/:id', (req, res, next) => {
+    Wizard.findOneAndRemove({_id: req.params.id}).then(data => res.send(data)).catch(err => res.send(err.message));
 });

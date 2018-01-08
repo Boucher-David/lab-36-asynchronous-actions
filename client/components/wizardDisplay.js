@@ -9,11 +9,10 @@ class WizardDisplay extends React.Component {
         this.state = {
             updating: false
         };
-        console.log(props);
     }
     
     _deleteWizard = () => {
-        this.props.deleteWizard(this.props.wizard.id);
+        this.props.deleteWizard(this.props.wizard._id);
     }
 
     toggleUpdate = () => {

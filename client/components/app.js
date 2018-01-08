@@ -11,6 +11,9 @@ class App extends React.Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount() {
+        this.props.init();
+    }
 
     displayWizards = () => {
         return Object.keys(this.props.state.wizards).map(id => {
@@ -34,15 +37,13 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch, getState) => {
+const mapDispatchToProps = (dispatch, payload) => {
+
     return {
-        wizardCreate: name => {
-            console.log(name);
-            dispatch(actions.wizardCreate(name))
-        },
+        wizardCreate: payload => dispatch(actions.wizardCreate(payload)),
         wizardUpdate: payload => dispatch(actions.wizardUpdate(payload)),
         wizardDelete: payload => dispatch(actions.wizardDelete(payload)),
-        init: payload => dispatch(actions.initDB(payload))
+        init: () => dispatch(actions.initDB())
     }
 }
 

@@ -2,11 +2,15 @@
 
 require('dotenv').config();
 
+const cors = require('cors');
+
 const express = require('express');
 const app = module.exports = express();
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/wizard', {useMongoClient: true});
+
+app.use(cors());
 
 app.use(require(`./routes.js`));
 

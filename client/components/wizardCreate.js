@@ -13,6 +13,7 @@ class WizardCreate extends React.Component {
         event.preventDefault();
         this.props.wizardCreate(this.state.name);
     }
+
     render() {
         return (
             <form>

@@ -7,13 +7,6 @@ const ExtractPlugin = require('extract-text-webpack-plugin');
 require('dotenv').config();
 
 module.exports = {
-    plugins: [
-        new EnvironmentPlugin(['NODE_ENV']),
-        new DefinePlugin({
-            '__API_URL__': JSON.stringify(process.env.API_URL)
-        })
-    ],
-
     entry: './client/index.js',
     output: {
         // Webpack prefers an absolute path:

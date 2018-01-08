@@ -1,46 +1,55 @@
 import superagent from 'superagent';
 
-
-let API_URL = `${__API_URL__}`;
-
 const createWizard = name => ({
     type:'CREATE_WIZARD',
     payload: name
 });
 
-export const wizardCreate = payload => dispatch => {
-
-    superagent.post(API_URL).send({name: "Gandelf"}).end(response => {
-        console.log('server response', response);
-    });
-
-
-    //dispatch(createWizard({name: "Gandalf", id: 12345}))
-}
 
 const updateWizard = payload => ({
     type: 'UPDATE_WIZARD',
     payload
 });
 
-export const wizardUpdate = payload => dispatch => {
-    dispatch(updateWizard({id: 12345, newName: "Gandalf the White"}));
-} 
 
 const deleteWizard = id => ({
     type: 'DELETE_WIZARD',
     payload: id
 });
 
-export const wizardDelete = payload => dispatch => {
-    dispatch(deleteWizard({id: 12345}));
-}
 
 const init = (payload) => ({
     type: 'INIT',
     payload
 });
 
+
+
 export const initDB = payload => dispatch => {
-    dispatch(init());
+    superagent.get('http://localhost:3000/wizard').end((err, response) => {
+        dispatch(init(response.body));
+    });
+}
+
+
+export const wizardCreate = payload => dispatch => {
+
+    superagent.post('http://localhost:3000/wizard').send({name: payload}).end((err, response) => {
+        dispatch(createWizard(response.body));
+    });
+
+}
+
+export const wizardUpdate = payload => dispatch => {
+    superagent.put(`http://localhost:3000/wizard/${payload._id}`).send(payload).end((err, response) => {
+        dispatch(updateWizard(response.body));
+    });
+
+} 
+
+export const wizardDelete = payload => dispatch => {
+    superagent.delete(`http://localhost:3000/wizard/${payload}`).end((err, response) => {
+        dispatch(deleteWizard({id: response.body._id}));
+    }); 
+
 }

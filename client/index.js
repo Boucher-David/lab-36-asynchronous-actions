@@ -5,8 +5,9 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import combinedReducers from './reducers/combineReducers.js';
 import thunk from './middleware/thunk.js';
+import reporter from './middleware/reporter.js';
 
-let store = createStore(combinedReducers, applyMiddleware(thunk));
+let store = createStore(combinedReducers, applyMiddleware(thunk, reporter));
 
 import App from './components/app.js';
 
